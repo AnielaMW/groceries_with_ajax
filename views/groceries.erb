@@ -4,6 +4,7 @@
   <% @groceries.each do |item| %>
     <li class="item">
       <%= item['name'] %>
+      <input type="button" id="remove_item" value="Delete"></input>
     </li>
   <% end %>
 </ul>

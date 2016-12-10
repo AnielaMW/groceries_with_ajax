@@ -19,9 +19,9 @@ var submitClick = function (event) {
     }).success(listItem)
   }
 
-  if (newItem === '') { errorMessage() } else { postRequest() }
+  if (newItem.trim() === '') { errorMessage() } else { postRequest() }
 }
 
 $(document).ready(function () {
-  $('form').on('submit', submitClick)
+  $('form').on('submit', submitClick())
 })
