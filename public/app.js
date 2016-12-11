@@ -7,7 +7,7 @@ var submitClick = function (event) {
 
   var newItem = $('#grocery_name').val();
 
-  var listItem = function () {$('ul').append('<li>' + newItem + '</li>');}
+  var listItem = function () {$('ul').append('<li>' + newItem + '<input type="button" id="remove_item" value="Delete"></input></li>');}
 
   var postRequest = function () {
     $.ajax({
