@@ -30,8 +30,8 @@ end
 
 def create_grocery(name)
   db_connection do |conn|
-    sql_query = "INSERT INTO groceries (name) VALUES ($1)"
-    conn.exec_params(sql_query, [name])
+    sql_query1 = "INSERT INTO groceries (name) VALUES ($1)"
+    conn.exec_params(sql_query1, [name])
   end
 end
 
@@ -51,3 +51,17 @@ post "/groceries" do
 end
 
 # code for "Exceeds Expectations" requirements should go below this line.
+
+def delete_grocery(name)
+  db_connection do |conn|
+    sql_query2 = "DELETE * FROM groceries
+    WHERE name = VALUES ($1)"
+    conn.exec_params(sql_query2, [name])
+  end
+end
+
+delete "/groceries" do
+  name = params[:name]
+  delete_grocery(name)
+  redirect "/groceries"
+end
