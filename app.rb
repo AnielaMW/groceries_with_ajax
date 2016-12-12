@@ -54,8 +54,8 @@ end
 
 def delete_grocery(name)
   db_connection do |conn|
-    sql_query2 = "DELETE * FROM groceries
-    WHERE name = VALUES ($1)"
+    sql_query2 = "DELETE FROM groceries
+    WHERE name = $1"
     conn.exec_params(sql_query2, [name])
   end
 end

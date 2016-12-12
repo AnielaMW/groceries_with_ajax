@@ -7,7 +7,10 @@ var submitClick = function (event) {
 
   var newItem = $('#grocery_name').val();
 
-  var listItem = function () {$('ul').append('<li>' + newItem + ' <input type="button" id="remove_item" value="Delete"</input></li>');}
+  var listItem = function () {
+    $('ul').append('<li>' + newItem + ' <input type="button" id="remove_item" value="Delete"</input></li>');
+    $('#grocery_name').val("");
+  }
 
   var postRequest = function () {
     $.ajax({
@@ -26,26 +29,25 @@ var submitClick = function (event) {
 var deleteClick = function (event) {
   event.preventDefault();
 
-  var item = $(this).closest('li').val();
-  // ^^^ I know this is wrong, because it is calling the item and the delete button.
+  var item = $(this).closest('li')
+  var text = item.text().trim();
 
   var confirmMessage = function () {
-    confirm('You are about to delete ' + item + '.');
-  } // ^^^ I'm not exctly sure how this confirm method works. I know it will ask the user to confirm their request, but does the confirm method know what to do when ok or cancle are clicked?
+    return confirm('You are about to delete ' + text + '.');
+  }
 
   var deleteItem = function () {
-    $(this).closest('li').remove();
-    // ^^^ I know this is wrong, but I don't know why.
+    item.remove();
   }
 
   var deleteRequest = function () {
-    confirmMessage();
-    $.ajax({
-      method: 'DELETE',
-      url: '/groceries',
-      data: {name: item}
-                // ^^^ I need "item" to call the correct .val() in order for it to delete the correct record from the SQL. Is this the corrct way to create the params for my DELETE method in the app.rb?
-    }).success(deleteItem());
+    if (confirmMessage() === true) {
+      $.ajax({
+        method: 'DELETE',
+        url: '/groceries',
+        data: {name: text}
+      }).success(deleteItem);
+    }
   }
 
   deleteRequest()
@@ -55,5 +57,5 @@ var deleteClick = function (event) {
 
 $(document).ready(function () {
   $('form').on('submit', submitClick);
-  $('li').on('click', '#remove_item', deleteClick);
+  $('ul').on('click', '#remove_item', deleteClick);
 });
