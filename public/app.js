@@ -46,7 +46,7 @@ var deleteClick = function (event) {
         method: 'DELETE',
         url: '/groceries',
         data: {name: text}
-      }).success(deleteItem);
+      }).success(deleteItem());
     }
   }
 
